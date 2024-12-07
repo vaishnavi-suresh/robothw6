@@ -38,7 +38,7 @@ async def moveAngle(base,slam,target_angle):
         toMove = await computeAng(slam,target_angle)
         await base.spin(toMove/2, 45)
 
-async def moveToPos(base, slam, x,y,theta):
+async def moveToPos(base, slam, x,y):
     print("move to point call")
     currPos = await slam.get_position()
     currX = currPos.x
