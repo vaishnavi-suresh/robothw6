@@ -48,7 +48,7 @@ async def main():
         return Xrange,Yrange
 
     detections = await DO.getDetections(my_detector,camera_name,base,10)
-    x,y,Xrange,Yrange = await DO.findRange(detections)
+    x,y,Xrange,Yrange =  DO.findRange(detections)
     Xrange,Yrange = await findObject(pil_frame, my_detector,base,camera_name)
     #When the loop breaks, the object is positioned correctly to pick up. The next step is to actually pick it up, which can be done by moving forward
     base.move_straight(300,200) #play with velocity and distance to get optimal mix
