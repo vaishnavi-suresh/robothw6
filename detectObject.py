@@ -73,8 +73,9 @@ async def motion(pf,myDetector,myCam, base, dist,spinnum, vel, mp):
         print("moving")
         detections = await getDetections(myDetector, myCam, base, 10)
         totalX,totalY,rangeX,rangeY = findRange(detections)
-        print(rangeX+' '+rangeY)
+        print(totalX)
         LorR = await leftOrRight(totalX, mp)
+        print(LorR)
         if LorR ==0:
             await base.move_straight(dist,vel)
         elif LorR ==-1:
