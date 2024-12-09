@@ -14,7 +14,7 @@ import time
 
 
 async def getDetections(colorDetector, cam, base, vel):
-    print("getting detections")
+    #print("getting detections")
     detections = await colorDetector.get_detections_from_camera(cam)
     if not detections:
         print("no detections found")
@@ -70,6 +70,7 @@ async def detectDistance(pf, rangeX, rangeY):
 
 async def motion(pf,myDetector,myCam, base, dist,spinnum, vel, mp):
     while True:
+        print("moving")
         detections = await getDetections(myDetector, myCam, base, 10)
         totalX,totalY,rangeX,rangeY = findRange(detections)
         LorR = await leftOrRight(totalX, mp)
