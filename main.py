@@ -31,7 +31,7 @@ async def main():
     camera = Camera.from_robot(machine, camera_name)
     base = Base.from_robot(machine, "viam_base")
     my_detector = VisionClient.from_robot(machine, "color_detector")
-    slam = SLAMClient.from_robot(robot, 'slam-2')
+    slam = SLAMClient.from_robot(machine, 'slam-2')
     frame = await camera.get_image(mime_type="image/jpeg")
     pil_frame = viam_to_pil_image(frame)
     currPos = slam.get_position()
