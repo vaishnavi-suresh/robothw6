@@ -29,10 +29,10 @@ def findRange(detections):
     totalY = 0
     rangeX = 0
     rangeY = 0
-    xmax = detection[0].x_max
-    xmin = detection[0].x_min
-    ymax = detection[0].y_max
-    ymin = detection[0].y_min
+    xmax = detections[0].x_max
+    xmin = detections[0].x_min
+    ymax = detections[0].y_max
+    ymin = detections[0].y_min
     for detection in detections:
         if detection.x_max>xmax:
             xmax = detection.x_max
