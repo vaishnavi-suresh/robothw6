@@ -52,10 +52,10 @@ async def moveToPos(base, slam, x,y):
     target_angle_rad = np.arctan2(y - currY, x - currX)
     target_angle = np.degrees(target_angle_rad)
     print(f'moving to angle: {target_angle}')
-    while getDist(currX,currY,x,y)>83:
+    while getDist(currX,currY,x,y)>120:
         currPos = await slam.get_position()
         currX = currPos.x
         currY = currPos.y
         await moveAngle(base,slam,target_angle)
-        await base.move_straight(30,400)
+        await base.move_straight(100,400)
 
