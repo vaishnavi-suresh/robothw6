@@ -14,8 +14,10 @@ import time
 
 
 async def getDetections(colorDetector, cam, base, vel):
+    print("getting detections")
     detections = await colorDetector.get_detections_from_camera(cam)
     if not detections:
+        print("no detections found")
         for i in range(40):
             await base.spin(18, vel)
             detections = await colorDetector.get_detections_from_camera(cam)
