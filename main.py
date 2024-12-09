@@ -34,7 +34,7 @@ async def main():
     slam = SLAMClient.from_robot(machine, 'slam-2')
     frame = await camera.get_image(mime_type="image/jpeg")
     pil_frame = viam_to_pil_image(frame)
-    currPos = slam.get_position()
+    currPos = await slam.get_position()
     #TO DO: change the endpoint so that it doesn't go back
     EPx = currPos.x
     EPy = currPos.y
