@@ -43,11 +43,11 @@ async def main():
     async def findObject(pil_frame, my_detector,base,camera_name):
         while GO.readyToGrab(pil_frame,Xrange,Yrange)==False:
             asyncio.create_task(DO.motion(pil_frame,my_detector,camera_name, base, 150,15, 500, pil_frame.size[0]/2)) 
-            detections = await DO.getDetections(my_detector,camera,base,10)
+            detections = await DO.getDetections(my_detector,camera_name,base,10)
             x,y,Xrange,Yrange = await DO.findRange(detections)
         return Xrange,Yrange
 
-    detections = await DO.getDetections(my_detector,camera,base,10)
+    detections = await DO.getDetections(my_detector,camera_name,base,10)
     x,y,Xrange,Yrange = await DO.findRange(detections)
     Xrange,Yrange = await findObject(pil_frame, my_detector,base,camera_name)
     #When the loop breaks, the object is positioned correctly to pick up. The next step is to actually pick it up, which can be done by moving forward
