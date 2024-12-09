@@ -43,9 +43,12 @@ async def main():
     async def findObject(pil_frame, my_detector,base,camera_name):
         detections = await DO.getDetections(my_detector,camera_name,base,100)
         x,y,Xrange,Yrange =  DO.findRange(detections)
-        while GO.readyToGrab(pil_frame,Xrange,Yrange)==False:
+        prevXrange=0
+        prevYrange = 0
+        while GO.readyToGrab(pil_frame,Xrange,Yrange, prevXrange, prevYrange)==False:
             await DO.motion(pil_frame,my_detector,camera_name, base, 150,15, 500, pil_frame.size[0]/2)
             asyncio.sleep(2)
+            prevXrange, prevYrange =Xrange,Yrange
             detections = await DO.getDetections(my_detector,camera_name,base,10)
             x,y,Xrange,Yrange =  DO.findRange(detections)
         return Xrange,Yrange

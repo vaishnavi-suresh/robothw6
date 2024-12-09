@@ -19,10 +19,13 @@ async def grabBall(colorDetector,pf,cam,base,dist,vel):
     return False
     
 
-def readyToGrab(pf, rangeX, rangeY):
-    if rangeX == 0.8*pf.size[0] or rangeY == 0.8*pf.size[1]:
+def readyToGrab(pf, rangeX, rangeY,prevXrange, prevYrange):
+    print (f'PREV X: {prevXrange} PREV Y: {[prevYrange]}')
+    print (f'CURR X: {rangeX} CURR Y: {[rangeY]}')
+    if prevXrange == rangeX and prevYrange == rangeY:
         return True
     return False
+    
 
 def inRange(pf, rangeX, rangeY):
     if rangeX == pf.size[0] or rangeY == pf.size[1]:
