@@ -26,6 +26,7 @@ async def connect():
     return await RobotClient.at_address('rover6-main.9883cqmu1w.viam.cloud', opts)
 
 async def main():
+    machine = await connect()
     camera_name = "cam"
     camera = Camera.from_robot(machine, camera_name)
     base = Base.from_robot(machine, "viam_base")
