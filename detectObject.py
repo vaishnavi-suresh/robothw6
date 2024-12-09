@@ -69,27 +69,24 @@ async def detectDistance(pf, rangeX, rangeY):
     
 
 async def motion(pf,myDetector,myCam, base, dist,spinnum, vel, mp):
-    while True:
-        print("moving")
-        detections = await getDetections(myDetector, myCam, base, 10)
-        totalX,totalY,rangeX,rangeY = findRange(detections)
-        print(totalX)
-        LorR = await leftOrRight(totalX, mp)
-        print(LorR)
-        if LorR ==0:
-            await base.move_straight(dist,vel)
-        elif LorR ==-1:
-            await base.spin(-spinnum,vel)
-            await base.move_straight(dist,vel)
-        elif LorR ==1:
-            await base.spin(spinnum,vel)
-            await base.move_straight(dist,vel)
+
+    print("moving")
+    detections = await getDetections(myDetector, myCam, base, 10)
+    totalX,totalY,rangeX,rangeY = findRange(detections)
+    print(totalX)
+    LorR = await leftOrRight(totalX, mp)
+    print(LorR)
+    if LorR ==0:
+        await base.move_straight(dist,vel)
+    elif LorR ==-1:
+        await base.spin(-spinnum,vel)
+        await base.move_straight(dist,vel)
+    elif LorR ==1:
+        await base.spin(spinnum,vel)
+        await base.move_straight(dist,vel)
         
-        await asyncio.sleep(0.1) 
-        status = await detectDistance(pf,rangeX,rangeY)
-        if status ==1:
-            asyncio.get_event_loop().stop()
-            break
+    await asyncio.sleep(0.1) 
+
 
 """
 
