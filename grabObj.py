@@ -6,7 +6,7 @@ To do so, this file will get the perfect angle to be at the center of the object
 it will then move a certain distance at a certain velocity (TBD) to pick up the ball
 It will have a function that tests if the ball is in the frame
 """
-import math
+import numpy as np
 import detectObject
 # this detector must detect only black
 async def grabBall(colorDetector,pf,cam,base,dist,vel):
@@ -22,7 +22,7 @@ async def grabBall(colorDetector,pf,cam,base,dist,vel):
 def readyToGrab(pf, rangeX, rangeY,prevXrange, prevYrange):
     print (f'PREV X: {prevXrange} PREV Y: {[prevYrange]}')
     print (f'CURR X: {rangeX} CURR Y: {[rangeY]}')
-    if math.abs(prevXrange-rangeX) <15 :
+    if np.abs(prevXrange-rangeX) <15 :
         return True
     return False
     
