@@ -23,8 +23,8 @@ import tracemalloc
 
 async def connect():
     opts = RobotClient.Options.with_api_key(
-        api_key='i11ph4btwvdp1kixh3oveex92tmvdtx2',
-        api_key_id='8b19e462-949d-4cf3-9f7a-5ce0854eb7b8'
+        api_key='xxxx',
+        api_key_id='xxxx'
     )
     return await RobotClient.at_address('rover6-main.9883cqmu1w.viam.cloud', opts)
 
