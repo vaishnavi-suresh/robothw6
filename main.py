@@ -72,6 +72,9 @@ async def main():
     linear=Vector3(x=0, y=0.5, z=0),
     angular=Vector3(x=0, y=0, z=0.25))
     await EP.moveToPos(base,slam,EPx,EPy)
+    await base.set_power(
+    linear=Vector3(x=0, y=0.5, z=0),
+    angular=Vector3(x=0, y=0, z=1))
     await GO.dropobject(base)
     await machine.close()
 
