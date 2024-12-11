@@ -33,7 +33,7 @@ async def findObject(pil_frame, my_detector,base,camera_name):
         prevYrange = 0
         while GO.readyToGrab(pil_frame,Xrange,Yrange, prevXrange, prevYrange)==False:
             await DO.motion(pil_frame,my_detector,camera_name, base, 150,15, 500, pil_frame.size[0]/2)
-            asyncio.sleep(2)
+            await asyncio.sleep(2)
             prevXrange, prevYrange =Xrange,Yrange
             detections = await DO.getDetections(my_detector,camera_name,base,10)
             x,y,Xrange,Yrange =  DO.findRange(detections)
@@ -72,6 +72,7 @@ async def main():
     angular=Vector3(x=0, y=0, z=0.25))
     await EP.moveToPos(base,slam,EPx,EPy)
     await GO.dropobject(base)
+    await machine.close()
 
 
 
