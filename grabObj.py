@@ -22,7 +22,7 @@ async def grabBall(colorDetector,pf,cam,base,dist,vel):
 def readyToGrab(pf, rangeX, rangeY,prevXrange, prevYrange):
     print (f'PREV X: {prevXrange} PREV Y: {[prevYrange]}')
     print (f'CURR X: {rangeX} CURR Y: {[rangeY]}')
-    if np.abs(prevXrange-rangeX) ==0 or np.abs(prevYrange-rangeY)==0:
+    if np.abs(prevXrange-rangeX) <30 or np.abs(prevYrange-rangeY)<30:
         return True
     return False
     
