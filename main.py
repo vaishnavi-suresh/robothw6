@@ -65,7 +65,6 @@ async def main():
     x,y,Xrange,Yrange =  DO.findRange(detections)
     Xrange,Yrange = await findObject(pil_frame, my_detector,base,camera_name)
     #When the loop breaks, the object is positioned correctly to pick up. The next step is to actually pick it up, which can be done by moving forward
-    await base.move_straight(300,200) #play with velocity and distance to get optimal mix
     """if GO.inRange(pil_frame,Xrange,Yrange)==False:
         Xrange,Yrange = await findObject(pil_frame, my_detector,base,camera_name)"""
     #Navigate to endpoints
