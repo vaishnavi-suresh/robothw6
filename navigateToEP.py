@@ -11,9 +11,6 @@ from viam.services.vision import VisionClient
 from viam.media.utils.pil import pil_to_viam_image, viam_to_pil_image
 import threading
 import time
-
-# main2.py
-import asyncio
 from viam.components.base import Base
 from viam.components.base import Vector3
 from viam.robot.client import RobotClient
