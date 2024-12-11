@@ -3,6 +3,7 @@ from viam.components.base import Base
 from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
 from viam.services.slam import SLAMClient
+from viam.components.base import Vector3
 import numpy as np
 from viam.robot.client import RobotClient
 from viam.rpc.dial import Credentials, DialOptions
@@ -25,6 +26,19 @@ async def connect():
     )
     return await RobotClient.at_address('rover6-main.9883cqmu1w.viam.cloud', opts)
 
+async def findObject(pil_frame, my_detector,base,camera_name):
+        detections = await DO.getDetections(my_detector,camera_name,base,100)
+        x,y,Xrange,Yrange =  DO.findRange(detections)
+        prevXrange=0
+        prevYrange = 0
+        while GO.readyToGrab(pil_frame,Xrange,Yrange, prevXrange, prevYrange)==False:
+            await DO.motion(pil_frame,my_detector,camera_name, base, 150,15, 500, pil_frame.size[0]/2)
+            asyncio.sleep(2)
+            prevXrange, prevYrange =Xrange,Yrange
+            detections = await DO.getDetections(my_detector,camera_name,base,10)
+            x,y,Xrange,Yrange =  DO.findRange(detections)
+        return Xrange,Yrange
+
 async def main():
     machine = await connect()
     camera_name = "cam"
@@ -38,20 +52,12 @@ async def main():
     #TO DO: change the endpoint so that it doesn't go back
     EPx = currPos.x
     EPy = currPos.y
+    await base.set_power(
+    linear=Vector3(x=0, y=0.5, z=0),
+    angular=Vector3(x=0, y=0, z=0.75))
 
     
-    async def findObject(pil_frame, my_detector,base,camera_name):
-        detections = await DO.getDetections(my_detector,camera_name,base,100)
-        x,y,Xrange,Yrange =  DO.findRange(detections)
-        prevXrange=0
-        prevYrange = 0
-        while GO.readyToGrab(pil_frame,Xrange,Yrange, prevXrange, prevYrange)==False:
-            await DO.motion(pil_frame,my_detector,camera_name, base, 150,15, 500, pil_frame.size[0]/2)
-            asyncio.sleep(2)
-            prevXrange, prevYrange =Xrange,Yrange
-            detections = await DO.getDetections(my_detector,camera_name,base,10)
-            x,y,Xrange,Yrange =  DO.findRange(detections)
-        return Xrange,Yrange
+    
 
     detections = await DO.getDetections(my_detector,camera_name,base,10)
     x,y,Xrange,Yrange =  DO.findRange(detections)
@@ -61,7 +67,11 @@ async def main():
     """if GO.inRange(pil_frame,Xrange,Yrange)==False:
         Xrange,Yrange = await findObject(pil_frame, my_detector,base,camera_name)"""
     #Navigate to endpoints
+    await base.set_power(
+    linear=Vector3(x=0, y=0.5, z=0),
+    angular=Vector3(x=0, y=0, z=0.25))
     await EP.moveToPos(base,slam,EPx,EPy)
+    await GO.dropobject(base)
 
 
 

@@ -32,3 +32,7 @@ def inRange(pf, rangeX, rangeY):
         return True
     return False
 
+async def dropobject(base):
+    await base.spin(-20,60)
+    await base.spin(20,60)
+
